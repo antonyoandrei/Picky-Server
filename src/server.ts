@@ -27,6 +27,8 @@ app.get("/", (req: Request, res: Response): void => {
     res.status(200).json({ message: "This is working bro!" });
 });
 
-app.get("/user", userRoutes);
+app.get("/user", (req: Request, res: Response): void => {
+    userRoutes(req, res);
+});
 
 export default app;
