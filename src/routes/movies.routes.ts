@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { createMovie, getAllMovies, getMovieById, getMoviesByUserId, updateMovie, deleteMovie, uploadImageWithCloudinary } from '../controllers/movies.controllers';
-import { checkJwtMiddleware } from '../middlewares/checkJwt.middleware';
 
 const moviesRoutes = Router();
 
