@@ -1,4 +1,5 @@
-import { DATA_SOURCE, mongoClient, postgresClient } from "../db/client";
+import prismaClient from "../db/client";
+import DATA_SOURCE from "../db/client";
 
 export const convertToType = (id: string) => {
     if (DATA_SOURCE === 'postgres') {
@@ -10,8 +11,8 @@ export const convertToType = (id: string) => {
 
 export const getClient = () => {
     if (DATA_SOURCE === 'postgres') {
-        return postgresClient
+        return null
     } else {
-        return mongoClient
+        return prismaClient
     }
 }
