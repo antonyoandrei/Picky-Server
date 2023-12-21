@@ -21,7 +21,6 @@ app.use(FileUpload({
 app.use("/user", userRoutes);
 app.use("/movie", moviesRoutes);
 app.use("/genre", genresRoutes);
-app.use(errorHandler)
 
 app.get("/", (req: Request, res: Response): void => {
     res.status(200).json({ message: "This is working bro!" });
