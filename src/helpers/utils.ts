@@ -1,4 +1,4 @@
-import { DATA_SOURCE, mongoClient, postgresClient } from "../db/client";
+import { DATA_SOURCE, postgresClient } from "../db/client";
 
 export const convertToType = (id: string) => {
     if (DATA_SOURCE === 'postgres') {
@@ -12,6 +12,6 @@ export const getClient = () => {
     if (DATA_SOURCE === 'postgres') {
         return postgresClient
     } else {
-        return mongoClient
+        return postgresClient
     }
 }
