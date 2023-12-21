@@ -1,20 +1,21 @@
-import { PrismaClient as MongoClient } from "../../prisma/generated/mongodb_client";
+import { PrismaClient as MongoClient, Prisma } from "../../prisma/generated/mongodb_client";
 import { PrismaClient as PostgresClient } from "../../prisma/generated/postgresql_client";
-import { Prisma } from "@prisma/client";
 import { DefaultArgs } from "@prisma/client/runtime/library";
 
-export const DATA_SOURCE: string = process.env.DATA_SOURCE ?? "mongo"
+export const DATA_SOURCE: string = process.env.DATA_SOURCE ?? "mongo";
 
-type ClientMongo = MongoClient<Prisma.PrismaClientOptions, never, DefaultArgs>
-type ClientPostgres = PostgresClient<Prisma.PrismaClientOptions, never, DefaultArgs>
+type ClientMongo = MongoClient<never, DefaultArgs>
+type ClientPostgres = PostgresClient<never, DefaultArgs>
 
 export const mongoClient: ClientMongo = new MongoClient();
 export const postgresClient: ClientPostgres = new PostgresClient();
 
-export let prismaClient: any
+export let prismaClient: ClientMongo | ClientPostgres;
 
 if (DATA_SOURCE === 'postgres') {
-    prismaClient = postgresClient
+    prismaClient = postgresClient;
 } else {
-    prismaClient = mongoClient
+    prismaClient = mongoClient;
 }
+
+export default prismaClient;
