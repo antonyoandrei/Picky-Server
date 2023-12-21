@@ -133,7 +133,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Visual Studio\\Picky\\Server\\prisma\\generated\\mongodb_client",
+      "value": "C:\\Visual Studio\\picky-server\\prisma\\generated\\mongodb_client",
       "fromEnvVar": null
     },
     "config": {

@@ -145,7 +145,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Visual Studio\\Picky\\Server\\prisma\\generated\\postgresql_client",
+      "value": "C:\\Visual Studio\\picky-server\\prisma\\generated\\postgresql_client",
       "fromEnvVar": null
     },
     "config": {
