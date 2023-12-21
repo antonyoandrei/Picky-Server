@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { prismaClient } from '../db/client';
+import prismaClient from '../db/client';
 import { convertToType } from '../helpers/utils';
 import { uploadImage } from '../helpers/cloudinary';
 import fs from 'fs-extra';

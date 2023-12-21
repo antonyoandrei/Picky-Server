@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { prismaClient } from '../db/client';
+import prismaClient from '../db/client';
 import { convertToType } from '../helpers/utils';
 
 export const getAllGenres = async (req: Request, res: Response) => {
