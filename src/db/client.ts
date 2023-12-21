@@ -1,7 +1,6 @@
 import { PrismaClient as MongoClient } from "../../prisma/generated/mongodb_client";
 import { PrismaClient as PostgresClient } from "../../prisma/generated/postgresql_client";
-import { DefaultArgs } from "@prisma/client/runtime/library";
-import { PrismaClientOptions } from "../../prisma/generated/postgresql_client/runtime/library";
+import { DefaultArgs, PrismaClientOptions } from "@prisma/client/runtime/library";
 
 export const DATA_SOURCE: string = process.env.DATA_SOURCE ?? "mongo"
 
