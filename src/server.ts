@@ -8,13 +8,7 @@ import morgan from 'morgan';
 import FileUpload from 'express-fileupload';
 
 const app = express();
-app.use(
-    cors({
-      origin: 'https://picky-nextjs.vercel.app' ,
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-      credentials: true,
-    })
-  );
+app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(FileUpload({
