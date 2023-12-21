@@ -8,8 +8,8 @@ import morgan from 'morgan';
 import FileUpload from 'express-fileupload';
 
 const app = express();
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 app.use(morgan('dev'));
 app.use(FileUpload({
     useTempFiles: true,
