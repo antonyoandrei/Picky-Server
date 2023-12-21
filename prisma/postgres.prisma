@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "./generated/postgresql_client"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  name       String   
+  password   String   
+  movies     Movies[]
+}
+
+model Movies {
+  id         Int      @id @default(autoincrement())
+  name       String   
+  score      String   
+  genres     GenresOnMovies[]
+  poster_image String
+  userId     Int?  
+  User       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Genres {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  movies     GenresOnMovies[]
+}
+
+model GenresOnMovies {
+  id         Int      @id @default(autoincrement())
+  movieId    Int?  
+  genreId    Int?  
+  movie      Movies?  @relation(fields: [movieId], references: [id])
+  genre      Genres?  @relation(fields: [genreId], references: [id])
+}
