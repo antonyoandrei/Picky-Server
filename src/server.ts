@@ -10,7 +10,11 @@ import { Request, Response } from 'express';
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+    origin: 'https://picky-nextjs.vercel.app',
+    optionsSuccesStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(FileUpload({
     useTempFiles: true,
