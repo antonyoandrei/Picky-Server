@@ -157,7 +157,6 @@ export const deleteMovie = async (req: Request, res: Response) => {
 
 export const uploadImageWithCloudinary = async (req: Request, res: Response) => {
     const image = req.files?.image
-    console.log(image)
     let imageUploaded = null
     if (image) {
         if ("tempFilePath" in image) {
