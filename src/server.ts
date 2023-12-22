@@ -7,28 +7,15 @@ import errorHandler from './middlewares/error.middleware';
 import morgan from 'morgan';
 import FileUpload from 'express-fileupload';
 import { Request, Response } from 'express';
-import path from 'path';
-import fs from 'fs';
 
 const app = express();
-const uploadsDirectory = path.join(__dirname, 'uploads');
-
-try {
-    fs.mkdirSync(uploadsDirectory, { recursive: true });
-} catch (err: any) {
-    if (err.code !== 'EEXIST') {
-        console.error(`Error creating 'uploads' directory: ${err.message}`);
-        process.exit(1);
-    }
-}
-
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(FileUpload({
     useTempFiles: true,
-    tempFileDir: uploadsDirectory,
-    limits: { fileSize: 10000000 },
+    tempFileDir: './uploads',
+    limits: {fileSize: 10000000},
     abortOnLimit: true
 }));
 app.use("/user", userRoutes);
@@ -39,6 +26,6 @@ app.get("/", (req: Request, res: Response): void => {
     res.status(200).json({ message: "This is working bro!" });
 });
 
-app.use(errorHandler);
+app.use(errorHandler)
 
 export default app;
