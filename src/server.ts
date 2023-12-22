@@ -9,7 +9,9 @@ import FileUpload from 'express-fileupload';
 import { Request, Response } from 'express';
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://picky-nextjs.vercel.app'
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(FileUpload({
