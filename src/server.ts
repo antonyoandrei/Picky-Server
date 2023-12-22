@@ -7,6 +7,7 @@ import errorHandler from './middlewares/error.middleware';
 import morgan from 'morgan';
 import FileUpload from 'express-fileupload';
 import { Request, Response } from 'express';
+import path from 'path';
 
 const app = express();
 app.use(cors());
@@ -14,7 +15,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(FileUpload({
     useTempFiles: true,
-    tempFileDir: './uploads',
+    tempFileDir: path.join(__dirname, 'uploads'),
     limits: {fileSize: 10000000},
     abortOnLimit: true
 }));
