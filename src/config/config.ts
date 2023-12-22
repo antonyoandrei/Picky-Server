@@ -9,11 +9,6 @@ const CONFIG: Configuration = {
         app: {
             PORT: process.env.PORT || 4001
         },
-        db: {
-            uri:
-                process.env.MONGO_URI_DEV ||
-                'mongodb://localhost:27017/test_development'
-        },
         auth0: {
             client_origin: process.env.APP_ORIGIN,
             audience: process.env.AUTH0_AUDIENCE,
@@ -28,11 +23,6 @@ const CONFIG: Configuration = {
     production: {
         app: {
             PORT: process.env.PORT || 4002
-        },
-        db: {
-            uri:
-                process.env.MONGO_URI_DEV ||
-                'mongodb://localhost:27017/test_production'
         },
         auth0: {
             client_origin: process.env.APP_ORIGIN,

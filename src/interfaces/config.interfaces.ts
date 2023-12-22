@@ -4,17 +4,12 @@ interface Configuration {
 
 interface ENV {
     app: APP
-    db?: DB
     auth0: AUTH0
     cloudinary: CLOUDINARY
 }
 
 interface APP {
     PORT: number | string
-}
-
-interface DB{
-    uri: string
 }
 
 interface AUTH0 {
