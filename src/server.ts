@@ -11,8 +11,7 @@ import { Request, Response } from 'express';
 const app = express();
 app.use(express.json());
 const corsOptions = {
-    origin: 'https://picky-nextjs.vercel.app',
-    optionsSuccesStatus: 200
+    origin: '*'
 };
 app.use(cors(corsOptions));
 app.use(morgan('dev'));
