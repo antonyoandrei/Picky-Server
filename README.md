@@ -2,73 +2,58 @@
   <img src="https://res.cloudinary.com/du94mex28/image/upload/v1699002532/Picky/logo_hlbuat.png" alt="Picky" width="350">
 </div>
 
+Welcome to the Picky project backend! This section provides an overview of the backend development, focusing on the technologies used, architecture, and deployment details.
+
 ## Overview
 
-Welcome to the Picky project! Picky is a movie management application that allows users to create, read, update, and delete movies. The project focuses on both frontend and backend development, with the frontend built using React and the backend employing Node.js, Express, MongoDB, Prisma, PostgreSQL, Auth0, and Cloudinary.
+Picky's backend serves as the engine that powers the movie management application. It is built using Node.js, Express, MongoDB, Prisma, PostgreSQL, Auth0, and Cloudinary. The backend handles CRUD operations for movie management and ensures secure authentication and authorization through Auth0.
 
 ## Table of Contents
 
-- [Frontend](#frontend)
-- [Backend](#backend)
+- [CRUD of Movies](#crud-of-movies)
+- [MVC Folder Architecture](#mvc-folder-architecture)
+- [Mongoose Implementation](#mongoose-implementation)
+- [Route Protection](#route-protection)
+- [Multi-Client Prisma Implementation](#multi-client-prisma-implementation)
+- [Proper Use of Types](#proper-use-of-types)
+- [Cloudinary Integration](#cloudinary-integration)
+- [Environment Variables (.env) Implementation](#environment-variables-env-implementation)
+- [Deployment on Railway](#deployment-on-railway)
 
-## Frontend
+## CRUD of Movies
 
-### Folder Architecture
+The backend supports comprehensive CRUD operations for managing movies. Users can create, read, update, and delete movie entries, providing a robust set of functionalities for movie management.
 
-The frontend follows a modular folder architecture for better organization and scalability. Each component and feature is structured within the designated folders, ensuring a clean and maintainable codebase.
+## MVC Folder Architecture
 
-### Integration of Auth0
+Picky's backend follows the Model-View-Controller (MVC) architecture for clear separation of concerns. Models handle data logic, views manage user interfaces, and controllers oversee the flow of data between models and views.
 
-Picky incorporates Auth0 for authentication and authorization. Users can securely log in and perform CRUD operations based on their roles and permissions.
+## Mongoose Implementation
 
-### Sending JWT in HTTP Requests
+MongoDB is seamlessly integrated using Mongoose to interact with the database. This provides a scalable and flexible solution for handling movie data.
 
-JSON Web Tokens (JWT) are utilized to handle user authentication. JWTs are securely sent in HTTP requests to validate user actions and maintain a secure communication channel between the frontend and backend.
+## Route Protection
 
-### Proper Use of Types
+To ensure the security of movie data, certain routes are protected. Only authenticated and authorized users can access and modify movie information, adding an extra layer of protection to the application.
 
-TypeScript is employed for type safety throughout the frontend codebase. This ensures better code quality, catching potential errors during development.
+## Multi-Client Prisma Implementation
 
-### Code Modularization
+Prisma is utilized as the database toolkit, supporting multiple clients for different database types. This allows for seamless integration with both MongoDB and PostgreSQL, accommodating different use cases and preferences.
 
-Code is modularized to enhance readability and reusability. Components and functions are organized logically, promoting an efficient and maintainable code structure.
+## Proper Use of Types
 
-### UX/UI Design
+TypeScript is employed in the backend code to enforce type safety. This reduces the likelihood of runtime errors and enhances overall code quality.
 
-The application's user interface is designed with a focus on user experience. The Figma design provides a visually appealing and intuitive layout, making movie management an enjoyable and straightforward process.
+## Cloudinary Integration
 
-## Backend
+Cloudinary is integrated into the backend for efficient handling of movie poster images. This ensures that the application can seamlessly manage and display movie posters from the cloud.
 
-### CRUD of Movies
-
-The backend supports CRUD operations for managing movies. Users can create, read, update, and delete movie entries, providing a comprehensive set of functionalities for movie management.
-
-### MVC Folder Architecture
-
-The backend follows the Model-View-Controller (MVC) architecture for clear separation of concerns. Models handle data logic, views manage user interfaces, and controllers oversee the flow of data between models and views.
-
-### Mongoose Implementation
-
-MongoDB is integrated using Mongoose to interact with the database. This provides a scalable and flexible solution for handling movie data.
-
-### Route Protection
-
-Certain routes are protected to ensure that only authenticated and authorized users can access and modify movie data. This adds an extra layer of security to the application.
-
-### Multi-Client Prisma Implementation
-
-Prisma is employed as the database toolkit, supporting multiple clients for various database types. This allows for seamless integration with both MongoDB and PostgreSQL, catering to different use cases and preferences.
-
-### Proper Use of Types
-
-TypeScript is utilized in the backend code to enforce type safety, reducing the likelihood of runtime errors and improving overall code quality.
-
-### Cloudinary Integration
-
-Cloudinary is integrated for efficient handling of movie poster images. This ensures that the application can seamlessly manage and display movie posters from the cloud.
-
-### Environment Variables (.env) Implementation
+## Environment Variables (.env) Implementation
 
 Sensitive information and configuration settings are stored in environment variables (.env) to enhance security and maintain flexibility across different deployment environments.
 
-Feel free to explore and enhance Picky!
+## Deployment on Railway
+
+Picky's backend is deployed on Railway, providing a scalable and reliable hosting solution. Railway streamlines the deployment process, ensuring that the backend is readily accessible and performs optimally.
+
+Feel free to explore and enhance the Picky backend!
