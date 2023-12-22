@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
-import { prismaClient } from '../db/client';
-import { convertToType } from '../helpers/utils';
+import prisma from '../db/client';
 
 export const getAllUsers = async (req: Request, res: Response) => {
 
     try {
-        const allUsers = await prismaClient.user.findMany({
+        const allUsers = await prisma.user.findMany({
             include: {
                 movies: {
                     include: {
@@ -26,7 +25,7 @@ export const createUser = async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
 
     try {    
-        const newUser = await prismaClient.user.create({
+        const newUser = await prisma.user.create({
             data: { name, email, password }
         });
     
@@ -40,8 +39,8 @@ export const getUserById = async (req: Request, res: Response) => {
     const { userId } = req.params;
 
     try {
-        const user = await prismaClient.user.findUnique({
-            where: { id: convertToType(userId) }, 
+        const user = await prisma.user.findUnique({
+            where: { id: userId }, 
             include: {
                 movies: {
                     include: {
@@ -52,32 +51,10 @@ export const getUserById = async (req: Request, res: Response) => {
                 }
             }
         })
+
         res.status(200).json(user);
     } catch (error) {
         res.status(500).json(error)
-    }
-};
-
-export const getUserByEmail = async (req: Request, res: Response) => {
-    const { userEmail } = req.params;
-
-    try {
-        const user = await prismaClient.user.findUnique({
-            where: { email: userEmail },
-            include: {
-                movies: {
-                    include: {
-                        genres: {
-                            select: { genre: { select: { name: true, id: true } } },
-                        },
-                    },
-                },
-            },
-        });
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(500).json(error);
-        console.error(error);
     }
 };
 
@@ -86,8 +63,8 @@ export const updateUser = async (req: Request, res: Response) => {
     const { name, email } = req.body;
     
     try {
-        const updatedUser = await prismaClient.user.update({
-            where: { id: convertToType(userId) },
+        const updatedUser = await prisma.user.update({
+            where: { id: userId },
             data: { name, email }
         });
             
@@ -101,8 +78,8 @@ export const deleteUser = async (req: Request, res: Response) => {
     const { userId } = req.params;
 
     try {
-        const deletedUser = await prismaClient.user.delete({
-            where: { id: convertToType(userId) }
+        const deletedUser = await prisma.user.delete({
+            where: { id: userId }
         });
         res.status(204).json(deletedUser);
     } catch (error) {

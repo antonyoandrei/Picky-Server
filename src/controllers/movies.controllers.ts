@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
-import { prismaClient } from '../db/client';
-import { convertToType } from '../helpers/utils';
 import { uploadImage } from '../helpers/cloudinary';
 import fs from 'fs-extra';
+import prisma from '../db/client';
 
 export const getAllMovies = async (req: Request, res: Response) => {
     try {
-        const allMovies = await prismaClient.movies.findMany({
+        const allMovies = await prisma.movies.findMany({
             include: {
                 genres: {
                     select: { genre: { select: { name: true, id: true } } } 
@@ -22,8 +21,9 @@ export const getAllMovies = async (req: Request, res: Response) => {
 export const createMovie = async (req: Request, res: Response) => {
     const { name, poster_image, score, genres } = req.body;
     const { userId } = req.params;
+
     try {
-        const movie = await prismaClient.movies.create({data:{
+        const movie = await prisma.movies.create({data:{
             name,
             poster_image,
             score,
@@ -37,7 +37,7 @@ export const createMovie = async (req: Request, res: Response) => {
                     },
                 })),
             },
-            User: { connect: { id: convertToType(userId) } },
+            User: { connect: { id: userId } },
         },
         include: {
             genres: {
@@ -51,45 +51,21 @@ export const createMovie = async (req: Request, res: Response) => {
     }
 };
 
-export const getMoviesByUserId = async (req: Request, res: Response) => {
-    const { userId } = req.params;
-
-    try {
-        const movies = await prismaClient.movies.findMany({
-            where: { userId: convertToType(userId) },
-            include: {
-                genres: {
-                    select: { genre: { select: { name: true, id: true } } }
-                },
-            },
-        });
-        res.status(200).json(movies);
-    } catch (error) {
-        res.status(500).json(error);
-    }
-};
-
 export const getMovieById = async (req: Request, res: Response) => {
     const { movieId } = req.params;
 
     try {
-        const movie = await prismaClient.movies.findUnique({
-            where: { id: convertToType(movieId) },
+        const movie = await prisma.movies.findUnique({
+            where: { id: movieId },
             include: {
                 genres: {
-                    select: { genre: { select: { name: true, id: true } } }
+                    select: { genre: { select: { name: true, id: true } } } 
                 },
             },
         });
-
-        if (!movie) {
-            return res.status(404).json({ error: 'Movie not found' });
-        }
-
         res.status(200).json(movie);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json(error);
     }
 };
 
@@ -98,8 +74,8 @@ export const updateMovie = async (req: Request, res: Response) => {
     const { name, poster_image, score, genres } = req.body;
 
     try {
-        const existingMovie = await prismaClient.movies.findUnique({
-            where: { id: convertToType(movieId) },
+        const existingMovie = await prisma.movies.findUnique({
+            where: { id: movieId },
             include: { genres: { select: { genre: { select: { name: true } } } } },
         });
 
@@ -107,12 +83,12 @@ export const updateMovie = async (req: Request, res: Response) => {
             return res.status(404).json({ error: "Movie not found" });
         }
 
-        const existingGenres = existingMovie.genres.map((genre: { genre: { name: string; }; }) => genre.genre?.name).filter(Boolean);
+        const existingGenres = existingMovie.genres.map((genre) => genre.genre?.name).filter(Boolean);
 
         const newGenres = genres.filter((genre: { name: string; }) => !existingGenres.includes(genre.name));
 
-        const updatedMovie = await prismaClient.movies.update({
-            where: { id: convertToType(movieId) },
+        const updatedMovie = await prisma.movies.update({
+            where: { id: movieId },
             data: {
                 name,
                 poster_image,
@@ -145,8 +121,8 @@ export const deleteMovie = async (req: Request, res: Response) => {
     const { movieId } = req.params;
 
     try {
-        const deletedMovie = await prismaClient.movies.delete({
-            where: { id: convertToType(movieId) }
+        const deletedMovie = await prisma.movies.delete({
+            where: { id: movieId }
         });
 
         res.status(200).json(deletedMovie);

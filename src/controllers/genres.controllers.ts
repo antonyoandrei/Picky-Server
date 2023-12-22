@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
-import { prismaClient } from '../db/client';
-import { convertToType } from '../helpers/utils';
+import prisma from '../db/client';
 
 export const getAllGenres = async (req: Request, res: Response) => {
     try {
-        const genres = await prismaClient.genres.findMany({
+        const genres = await prisma.genres.findMany({
             select: {
                 name: true,
                 id: true
@@ -20,7 +19,7 @@ export const createGenre = async (req: Request, res: Response) => {
     const { name } = req.body;
 
     try {
-        const genre = await prismaClient.genres.create({ data: { name } });
+        const genre = await prisma.genres.create({ data: { name } });
         res.status(201).json(genre);
     } catch (error) {
         res.status(500).json(error);
@@ -31,8 +30,8 @@ export const deleteGenre = async (req: Request, res: Response) => {
     const { genreId } = req.params;
 
     try {
-        const deletedGenre = await prismaClient.genres.delete({
-            where: { id: convertToType(genreId) }
+        const deletedGenre = await prisma.genres.delete({
+            where: { id: genreId }
         });
 
         res.status(200).json(deletedGenre);
